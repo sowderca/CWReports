@@ -22,8 +22,8 @@ wb = p.workbook
 
 excel = []
 excel << :tables
-start_date = Date.parse("2014-04-01")
-end_date = Date.parse("2014-04-30")
+start_date = Date.parse("#{monday}")
+end_date = Date.parse("#{today}")
 comps = Array.new #array for new dates
 #gets only the weekdays from the start date untill the end date.
 days = start_date.business_dates_until(end_date)
@@ -111,28 +111,28 @@ if excel.include? :tables
 end
 end
 puts start_date
-p.serialize('yearly.xlsx')
+p.serialize('Weekly.xlsx')
 #Email set up and send
 # Define the from address.
-#mb_obj.set_from_address("reports@vc3.com", {"first"=>"Cameron", "last" => "Sowder"});
+mb_obj.set_from_address("reports@vc3.com", {"first"=>"Cameron", "last" => "Sowder"});
 # Define a to recipient.
-#mb_obj.add_recipient(:to, "cameron.sowder@vc3.com", {"first" => "Cameron", "last" => "Sowder"});
+mb_obj.add_recipient(:to, "cameron.sowder@vc3.com", {"first" => "Cameron", "last" => "Sowder"});
 # Define a cc recipient.
-#mb_obj.add_recipient(:to, "Amy.McKeown@vc3.com", {"first" => "Amy", "last" => "McKeown"});
-#mb_obj.add_recipient(:to, "mark.carter@vc3.com", {"first" => "Mark", "last" => "Carter"});
+mb_obj.add_recipient(:to, "Amy.McKeown@vc3.com", {"first" => "Amy", "last" => "McKeown"});
+mb_obj.add_recipient(:to, "mark.carter@vc3.com", {"first" => "Mark", "last" => "Carter"});
 # Define the subject.
-#mb_obj.set_subject("FCR Daily Report");
+mb_obj.set_subject("FCR Daily Report");
 # Define the body of the message.
-#mb_obj.set_text_body("Daily Report");
+mb_obj.set_text_body("Daily Report");
 # Set the Message-Id header. Pass in a valid Message-Id.
-#mb_obj.set_message_id("<2014101400 0000.11111.11111@example.com>")
+mb_obj.set_message_id("<2014101400 0000.11111.11111@example.com>")
 # Clear the Message-Id header. Pass in nil or empty string.
-#mb_obj.set_message_id(nil)
-#mb_obj.set_message_id('')
+mb_obj.set_message_id(nil)
+mb_obj.set_message_id('')
 # Other Optional Parameters.
-#mb_obj.add_attachment("yearly.xlsx");
+mb_obj.add_attachment("Weekly.xlsx");
 
 
 # Send your message through the client
-#mg_client.send_message("sandboxd511cc2c450b4b2d93f4bf5f4d385dae.mailgun.org", mb_obj)
-#remove_file("yearly.xlsx")
+mg_client.send_message("sandboxd511cc2c450b4b2d93f4bf5f4d385dae.mailgun.org", mb_obj)
+remove_file("Weekly.xlsx")
