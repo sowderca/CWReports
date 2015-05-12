@@ -16,11 +16,12 @@ wb = p.workbook
 excel = []
 excel << :tables
 
+
 #SCHEDULER.every '10m', :first_in => 0 do |job|
 
 #gets the current date
 #
-morning = (Date.today).strftime("%Y-%m-%d")
+morning = (Date.today-1).strftime("%Y-%m-%d")
 evening = Time.now.iso8601
 @morning = "[#{morning}T07:00:00-04:00]"
 @evening = "[#{evening}]"
@@ -112,8 +113,8 @@ mb_obj.set_from_address("reports@vc3.com", {"first"=>"Cameron", "last" => "Sowde
 # Define a to recipient.
 mb_obj.add_recipient(:to, "cameron.sowder@vc3.com", {"first" => "Cameron", "last" => "Sowder"});
 # Define a cc recipient.
-mb_obj.add_recipient(:to, "Amy.McKeown@vc3.com", {"first" => "Amy", "last" => "McKeown"});
-mb_obj.add_recipient(:to, "mark.carter@vc3.com", {"first" => "Mark", "last" => "Carter"});
+#mb_obj.add_recipient(:to, "Amy.McKeown@vc3.com", {"first" => "Amy", "last" => "McKeown"});
+mb_obj.add_recipient(:to, "Team-FCR@vc3.com", {"first" => "Mark", "last" => "Carter"});
 # Define the subject.
 mb_obj.set_subject("FCR Daily Report");
 # Define the body of the message.

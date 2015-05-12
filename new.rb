@@ -3,43 +3,64 @@ require 'connect-stoopid'
 require 'axlsx'
 require 'mailgun'
 require 'date'
-require 'time'
-#require 'fastercsv'
+require 'Time'
 
 
-#Mailgun 
+#set up mailgun client
 mg_client = Mailgun::Client.new("key-70f741f0b10b167ad20b09f841151af8")
-mb_obj = Mailgun::MessageBuilder.new
+mb_obj = Mailgun::MessageBuilder.new 
 
+# Function for deleting files
 def remove_file(file)
-  File.delete(file)
+    File.delete(file)
 end
-=begin vars
-Set the dates for the report
-=end
+
+#set up vars
+comps = Array.new
 p = Axlsx::Package.new
-wb = p.workbook
-
-
-
-
+wb = p.workbook:w
 excel = []
-excel << :tables
+daily_values = Hash.new
 start_date = Date.parse("#{monday}")
 end_date = Date.parse("#{today}")
-comps = Array.new #array for new dates
-#gets only the weekdays from the start date untill the end date.
 days = start_date.business_dates_until(end_date)
 
 
-days.each do | modify | 
-  comps << modify.iso8601
+days.each do | modify |
+    comps << modify.iso8601
 end
 
-comps.each do |day|
-	@morning = "[#{day}T07:00:00-04:00]"
-	@evening = "[#{day}T18:00:00-04:00]"
-	cw_client = ConnectStoopid::ReportingClient.new('connect.vc3.com', 'vc3', 'dattoCW', 'mushySh@pe83')
+class Wkday 
+    attr_ :date, :team, :opened, :closed, :appletrees
+    
+    def initialize(date, team, opened, closed, appletrees)
+        @date = date
+        @team = team
+        @opened = opened
+        @closed = closed
+        @appletrees = appletrees 
+    end
+
+    def ==(other)
+        self.class === other and
+            other.date == @date and 
+            other.team == @team and
+            other.opened == @opened and
+            other.closed == @closed and 
+            other.appletrees = @appletrees 
+    end
+    
+    alias eql? ==
+    
+    def hash
+        @date.hash ^ @team.hash ^ @opened.hash ^ @closed.hash ^ @appletrees.hash
+    end
+end     
+comps each do | daily |
+    d = Wkday.new("#{daily}, #{total_c}, #{closed_FCR}, #{closed_infa}, #{closed_Comm}, #{closed_SC}, #{closed_NC}, #{closed_GA}, #{labtech_closed}, #{appletrees}" 
+    
+# Connectwise API calls
+cw_client = ConnectStoopid::ReportingClient.new('connect.vc3.com', 'vc3', 'dattoCW', 'mushySh@pe83')
 	opened_total = cw_client.run_report_count("reportName" => "Service", "conditions" => "date_entered >= #{@morning} and date_entered < #{@evening} and  (closed_by != 'Zadmin' and closed_by != 'ltadmin') and (team_name = 'SC Comm' or team_name = 'SC Commercial' or team_name = 'NC' or team_name = 'NC Internal' or team_name = 'GA Govt' or team_name = 'GA Govt Internal' or team_name = 'SC Government' or team_name = 'SC Govt Internal' or team_name = 'FCR')")
 
 	opened_Comm = cw_client.run_report_count("reportName" => "Service", "conditions" => "date_entered >= #{@morning} and date_entered < #{@evening} and (closed_by != 'Zadmin' and closed_by != 'ltadmin') and (team_name = 'SC Comm' or team_name = 'SC Commercial')")
@@ -82,60 +103,5 @@ comps.each do |day|
 	fcr_closedon = closed_onFCR.to_f.send(:/, opened_fcr).send(:*,100)
 	wheelhouse_percent = wheelhouse_opened.to_f.send(:/, opened_total).send(:*,100)
 	fcr_wheelhouse = wheelhouse_closed.to_f.send(:/, wheelhouse_opened).send(:*,100)
+# End Connectwise API calls
 
-#excel sheet set up
-if excel.include? :tables
-  wb.add_worksheet(:name => "#{day}") do |sheet|
-	sheet.add_row ["VC3 Metrics"]
-	sheet.add_row ["",""]
-	sheet.add_row ["Total closed today", "#{closed_total}"]
-	sheet.add_row ["Total opened today", "#{opened_total}"]
-	sheet.add_row ["Total unresolved to date", "#{unresolved}"]
-	sheet.add_row ["",""]
-	sheet.add_row ["",""]
-	sheet.add_row ["FCR"]
-	sheet.add_row ["Team", "Total", "FCR", "SC Comm", "NC Govt", "SC Govt", "GA Govt", "Infrastructure", "Second Shift"]
-	sheet.add_row ["Closed today by FCR", "#{closed_FCR}", "#{closed_onFCR}", "#{closed_Comm}", "#{closed_NC}", "#{closed_SC}", "#{closed_GA}", "#{closed_infa}", "#{closed_secondshift}"]
-	sheet.add_row ["Opened today per team", "#{opened_total}", "#{opened_fcr}", "#{opened_Comm}", "#{opened_NC}", "#{opened_SC}", "#{opened_GA}"]
-	sheet.add_row ["FCR Percent Closed", "#{fcr_rate}%", "#{fcr_closedon}%", "#{fcr_comm}%", "#{fcr_nc}%", "#{fcr_sc}%", "#{fcr_ga}%"]	
-	sheet.add_row ["",""]
-	sheet.add_row ["Appletree tickets", "#{appletrees}"]
-	sheet.add_row ["Wheelhouse tickets closed", "#{wheelhouse_closed}"]
-	sheet.add_row ["Wheelhouse tickets opened", "#{wheelhouse_opened}"]
-	sheet.add_row ["Percent of Wheelhouse tickets over total tickets", "#{wheelhouse_percent}%"]
-	sheet.add_row ["Wheelhouse FCR rate", "#{fcr_wheelhouse}"]
-	sheet.add_row ["",""]
-	sheet.add_row ["",""]
-	sheet.add_row ["Regional Teams"]
-	sheet.add_row ["Team", "SC Comm", "NC Govt", "SC Govt", "GA Govt"]
-	sheet.add_row ["Closed tickets today by team", "#{comm_closed}", "#{nc_closed}", "#{sc_closed}", "#{ga_closed}"]
-	sheet.add_row ["Total unresolved to date by team", "#{unresolved_comm}", "#{unresolved_nc}", "#{unresolved_sc}", "#{unresolved_ga}"]
-  end
-end
-end
-puts start_date
-p.serialize('Weekly.xlsx')
-#Email set up and send
-# Define the from address.
-mb_obj.set_from_address("reports@vc3.com", {"first"=>"Cameron", "last" => "Sowder"});
-# Define a to recipient.
-mb_obj.add_recipient(:to, "cameron.sowder@vc3.com", {"first" => "Cameron", "last" => "Sowder"});
-# Define a cc recipient.
-mb_obj.add_recipient(:to, "Amy.McKeown@vc3.com", {"first" => "Amy", "last" => "McKeown"});
-mb_obj.add_recipient(:to, "mark.carter@vc3.com", {"first" => "Mark", "last" => "Carter"});
-# Define the subject.
-mb_obj.set_subject("FCR Daily Report");
-# Define the body of the message.
-mb_obj.set_text_body("Daily Report");
-# Set the Message-Id header. Pass in a valid Message-Id.
-mb_obj.set_message_id("<2014101400 0000.11111.11111@example.com>")
-# Clear the Message-Id header. Pass in nil or empty string.
-mb_obj.set_message_id(nil)
-mb_obj.set_message_id('')
-# Other Optional Parameters.
-mb_obj.add_attachment("Weekly.xlsx");
-
-
-# Send your message through the client
-mg_client.send_message("sandboxd511cc2c450b4b2d93f4bf5f4d385dae.mailgun.org", mb_obj)
-remove_file("Weekly.xlsx")
