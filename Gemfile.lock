@@ -102,6 +102,7 @@ GEM
       nori (~> 2.4)
       uuid (~> 2.3.7)
       wasabi (~> 3.4)
+    scruffy (0.2.6)
     spoon (0.0.4)
       ffi
     systemu (2.6.5)
@@ -128,4 +129,5 @@ DEPENDENCIES
   connect-stoopid
   irbtools
   mailgun-ruby (~> 1.0.3)
+  scruffy (~> 0.2.6)
   to-csv
