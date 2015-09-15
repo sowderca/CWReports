@@ -213,7 +213,7 @@ if excel.include?(:tables)
         sheet.add_row ["Vc3 Metrics"]
         sheet.add_row ["",""]
         sheet.add_row ["Total closed today", "#{tickets_closed}"]
-        sheet.add_row ["Total opened today", "#{tickets_closed}"]
+        sheet.add_row ["Total opened today", "#{tickets_opened}"]
         sheet.add_row ["Total unresolved to date", "#{tickets_unresolved}"]
         sheet.add_row ["",""]
         sheet.add_row ["",""]
@@ -221,7 +221,7 @@ if excel.include?(:tables)
         sheet.add_row ["Team", "Total", "FCR", "SC Comm", "NC Govt", "SC Govt", "GA Govt"]
         sheet.add_row ["Closed by FCR", "#{daily_totalClosed}", "#{closed_FCR}", "#{closed_Comm}", "#{closed_NC}", "#{closed_SC}", "#{closed_GA}"]
         sheet.add_row ["Opened per team", "#{daily_totalOpened}", "#{opened_FCR}", "#{opened_Comm}", "#{opened_NC}", "#{opened_SC}", "#{opened_GA}"]
-        sheet.add_row ["FCR percent closed", "#{fcr_rate}", "#{fcr_rate}", "#{fcr_comm}", "#{fcr_nc}", "#{fcr_sc}", "#{fcr_ga}"]
+        sheet.add_row ["FCR percent closed", "#{fcr_rate}", "#{fcr_fcr}", "#{fcr_comm}", "#{fcr_nc}", "#{fcr_sc}", "#{fcr_ga}"]
         sheet.add_row ["",""]
         sheet.add_row ["Second and third Shift"]
         sheet.add_row ["Team", "Total", "FCR", "SC Comm", "NC Govt", "SC Govt", "GA Govt"]
@@ -242,8 +242,8 @@ mb_obj.set_from_address("reports@vc3.com", {"first"=>"Cameron", "last" => "Sowde
 # Define a to recipient.
 mb_obj.add_recipient(:to, "cameron.sowder@vc3.com", {"first" => "Cameron", "last" => "Sowder"});
 # Define a cc recipient.
-#mb_obj.add_recipient(:to, "Amy.McKeown@vc3.com", {"first" => "Amy", "last" => "McKeown"});
-#mb_obj.add_recipient(:to, "Team-FCR@vc3.com", {"first" => "Mark", "last" => "Carter"});
+mb_obj.add_recipient(:to, "Amy.McKeown@vc3.com", {"first" => "Amy", "last" => "McKeown"});
+mb_obj.add_recipient(:to, "Team-FCR@vc3.com", {"first" => "Mark", "last" => "Carter"});
 # Define the subject.
 mb_obj.set_subject("FCR Daily Report");
 # Define the body of the message.
