@@ -243,7 +243,7 @@ mb_obj.set_from_address("reports@vc3.com", {"first"=>"Cameron", "last" => "Sowde
 mb_obj.add_recipient(:to, "cameron.sowder@vc3.com", {"first" => "Cameron", "last" => "Sowder"});
 # Define a cc recipient.
 mb_obj.add_recipient(:to, "Amy.McKeown@vc3.com", {"first" => "Amy", "last" => "McKeown"});
-mb_obj.add_recipient(:to, "Team-FCR@vc3.com", {"first" => "Mark", "last" => "Carter"});
+#mb_obj.add_recipient(:to, "Team-FCR@vc3.com", {"first" => "Mark", "last" => "Carter"});
 # Define the subject.
 mb_obj.set_subject("FCR Daily Report");
 # Define the body of the message.
