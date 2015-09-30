@@ -19,7 +19,7 @@
 
 # Learn more: http://github.com/javan/whenever
 #
-every :day, :at => '7:00am' do 
+every %w(mon tue thu fri), :at => '7:00am' do 
     rake 'daily'
 end
 
