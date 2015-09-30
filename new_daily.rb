@@ -163,23 +163,23 @@ loop do
     break unless night_opened_FCR.nil? 
 end
 loop do 
-    night_closed_Comm = cw_client.run_report_count("reportName" => "Service", "conditions" => "date_closed >= #{@yesterday_morning} and date_closed < #{@this_morning} and (Board_Name = 'SC Comm Services' or Board_Name = 'SC Comm Internal')")
+    night_closed_Comm = cw_client.run_report_count("reportName" => "Service", "conditions" => "date_closed >= #{@yesterday_morning} and date_closed < #{@this_morning} and (Board_Name = 'SC Comm Services' or Board_Name = 'SC Comm Internal') and closed_by != 'Zadmin' and closed_by != 'ltadmin'")
     break unless night_closed_Comm.nil? 
 end
 loop do 
-    night_closed_NC = cw_client.run_report_count("reportName" => "Service", "conditions" => "date_closed >= #{@yesterday_evening} and date_closed < #{@this_morning} and (Board_Name = 'NC Govt Services' or Board_Name = 'NC Govt Internal')")
+    night_closed_NC = cw_client.run_report_count("reportName" => "Service", "conditions" => "date_closed >= #{@yesterday_evening} and date_closed < #{@this_morning} and (Board_Name = 'NC Govt Services' or Board_Name = 'NC Govt Internal') and closed_by != 'Zadmin' and closed_by != 'ltadmin'")
     break unless night_closed_NC.nil? 
 end
 loop do 
-    night_closed_SC = cw_client.run_report_count("reportName" => "Service", "conditions" => "date_closed >= #{@yesterday_evening} and date_closed < #{@this_morning} and (Board_Name = 'SC Govt Services' or Board_Name = 'SC Govt Internal')")
+    night_closed_SC = cw_client.run_report_count("reportName" => "Service", "conditions" => "date_closed >= #{@yesterday_evening} and date_closed < #{@this_morning} and (Board_Name = 'SC Govt Services' or Board_Name = 'SC Govt Internal') and closed_by != 'Zadmin' and closed_by != 'ltadmin'")
     break  unless night_closed_SC.nil? 
 end
 loop do 
-    night_closed_GA = cw_client.run_report_count("reportName" => "Service", "conditions" => "date_closed >= #{@yesterday_evening} and date_closed < #{@this_morning} and (Board_Name = 'GA Govt Services' or Board_Name = 'GA Govt Internal')")
+    night_closed_GA = cw_client.run_report_count("reportName" => "Service", "conditions" => "date_closed >= #{@yesterday_evening} and date_closed < #{@this_morning} and (Board_Name = 'GA Govt Services' or Board_Name = 'GA Govt Internal') and closed_by != 'Zadmin' and closed_by != 'ltadmin'")
     break unless night_closed_GA.nil? 
 end
 loop do 
-    night_closed_FCR = cw_client.run_report_count("reportName" => "Service", "conditions" => "date_closed >= #{@yesterday_evening} and date_closed < #{@this_morning} and Board_Name = 'FCR'") 
+    night_closed_FCR = cw_client.run_report_count("reportName" => "Service", "conditions" => "date_closed >= #{@yesterday_evening} and date_closed < #{@this_morning} and Board_Name = 'FCR' and closed_by != 'Zadmin' and closed_by != 'ltadmin'") 
     break  unless night_closed_FCR.nil? 
 end
 
