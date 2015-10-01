@@ -19,6 +19,7 @@
 
 # Learn more: http://github.com/javan/whenever
 #
+job_type :rake "cd :path && /home/vc3admin/.rbenv/bin/rbenv exec bundle exec rake :task --silent :output"
 every %w(mon tue wed thu fri), :at => '7:00am' do 
     rake 'daily'
 end
