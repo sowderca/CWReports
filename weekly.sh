@@ -1,4 +1,3 @@
 #!/bin/bash
-source /home/vc3admin/.bashrc;
-rbenv global 2.2.2;
-bundle exec ruby ./new_weekly.rb;
+
+bundle exec ruby /home/vc3admin/reports/cw_reports/new_weekly.rb;

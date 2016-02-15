@@ -25,5 +25,5 @@ every %w(mon tue wed thu fri), :at => '7:00am' do
 end
 
 every %w(sat), :at => '7:00am' do 
-    rake "weekly"
+    rake 'weekly'
 end
