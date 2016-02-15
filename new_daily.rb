@@ -176,33 +176,33 @@ tickets_opened = daily_totalOpened + nightly_totalOpened rescue nil
 tickets_closed = daily_totalClosed + nightly_totalClosed + nc_closed + sc_closed + ga_closed rescue nil
 tickets_unresolved = unresolved_nc + unresolved_sc + unresolved_ga rescue nil
 
-
 if excel.include?(:tables)
     wb.add_worksheet(:name => "Daily Report") do |sheet|
         sheet.add_row ["Vc3 Metrics"]
         sheet.add_row ["",""]
-        sheet.add_row ["Total closed today", "#{tickets_closed}"]
-        sheet.add_row ["Total opened today", "#{tickets_opened}"]
-        sheet.add_row ["Total unresolved to date", "#{tickets_unresolved}"]
+        sheet.add_row ["Total yesterday", "#{tickets_closed}"]
+        sheet.add_row ["Total yesterday", "#{tickets_opened}"]
+        sheet.add_row ["Total current unresolved", "#{tickets_unresolved}"]
         sheet.add_row ["",""]
         sheet.add_row ["",""]
         sheet.add_row ["FCR"]
-        sheet.add_row ["Team", "Total", "FCR", "NC Govt", "SC Govt", "GA Govt"]
-        sheet.add_row ["Closed by FCR", "#{daily_totalClosed}", "#{closed_FCR}", "#{closed_NC}", "#{closed_SC}", "#{closed_GA}"]
-        sheet.add_row ["Opened per team", "#{daily_totalOpened}", "#{opened_FCR}", "#{opened_NC}", "#{opened_SC}", "#{opened_GA}"]
-        sheet.add_row ["FCR percent closed", "#{fcr_rate}", "#{fcr_fcr}", "#{fcr_nc}", "#{fcr_sc}", "#{fcr_ga}"]
+        sheet.add_row ["Team", "Total", "FCR", "SC", "NC", "GA"]
+        sheet.add_row ["Closed by FCR", "#{daily_totalClosed}", "#{closed_FCR}", "#{closed_SC}", "#{closed_NC}", "#{closed_GA}"]
+        sheet.add_row ["Opened per team", "#{daily_totalOpened}", "#{opened_FCR}", "#{opened_SC}", "#{opened_NC}", "#{opened_GA}"]
+        sheet.add_row ["FCR percent closed", "#{fcr_rate}", "#{fcr_fcr}", "#{fcr_sc}", "#{fcr_nc}", "#{fcr_ga}"]
         sheet.add_row ["",""]
         sheet.add_row ["Second and third Shift"]
-        sheet.add_row ["Team", "Total", "FCR", "NC Govt", "SC Govt", "GA Govt"]
-        sheet.add_row ["Closed", "#{nightly_totalClosed}", "#{night_closed_FCR}", "#{night_closed_NC}", "#{night_closed_SC}", "#{night_closed_GA}"]
-        sheet.add_row ["Opened", "#{nightly_totalOpened}", "#{night_opened_FCR}", "#{night_opened_NC}", "#{night_opened_SC}", "#{night_opened_GA}"]
+        sheet.add_row ["Team", "Total", "FCR", "SC", "NC", "GA"]
+        sheet.add_row ["Closed", "#{nightly_totalClosed}", "#{night_closed_FCR}", "#{night_closed_SC}", "#{night_closed_NC}", "#{night_closed_GA}"]
+        sheet.add_row ["Opened", "#{nightly_totalOpened}", "#{night_opened_FCR}", "#{night_opened_SC}", "#{night_opened_NC}", "#{night_opened_GA}"]
         sheet.add_row ["",""]
         sheet.add_row ["Regional Teams"]
-        sheet.add_row ["Team", "NC Govt", "SC Govt", "GA Govt"]
-        sheet.add_row ["Closed tickets by team", "#{nc_closed}", "#{sc_closed}", "#{ga_closed}"]
-        sheet.add_row ["Total unresloved to date by team", "#{unresolved_nc}", "#{unresolved_sc}", "#{unresolved_ga}"]
+        sheet.add_row ["Team", "SC", "NC", "GA"]
+        sheet.add_row ["Closed tickets yesterday by team", "#{sc_closed}", "#{nc_closed}", "#{ga_closed}"]
+        sheet.add_row ["Total current unresolved by team", "#{unresolved_sc}", "#{unresolved_nc}", "#{unresolved_ga}"]
    end
 end
+
 
 p.serialize('daily.xlsx')
 #Email set up and send
@@ -211,7 +211,7 @@ mb_obj.set_from_address("reports@vc3.com", {"first"=>"Cameron", "last" => "Sowde
 # Define a to recipient.
 mb_obj.add_recipient(:to, "cameron.sowder@vc3.com", {"first" => "Cameron", "last" => "Sowder"});
 # Define a cc recipient.
-#mb_obj.add_recipient(:to, "Amy.McKeown@vc3.com", {"first" => "Amy", "last" => "McKeown"});
+mb_obj.add_recipient(:to, "Amy.McKeown@vc3.com", {"first" => "Amy", "last" => "McKeown"});
 #mb_obj.add_recipient(:to, "Team-FCR@vc3.com", {"first" => "Mark", "last" => "Carter"});
 # Define the subject.
 mb_obj.set_subject("FCR Daily Report");

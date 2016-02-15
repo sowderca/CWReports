@@ -244,9 +244,9 @@ if excel.include?(:tables)
     wb.add_worksheet(:name => "Week of #{tuesday}") do |sheet|
         sheet.add_row ["Vc3 Metrics"]
         sheet.add_row ["",""]
-        sheet.add_row ["Total closed past six months", "#{tickets_closed}"]
-        sheet.add_row ["Total opened past six months", "#{tickets_opened}"]
-        sheet.add_row ["Total unresolved to date", "#{tickets_unresolved}"]
+        sheet.add_row ["Total closed past week", "#{tickets_closed}"]
+        sheet.add_row ["Total opened past week", "#{tickets_opened}"]
+        sheet.add_row ["Total current unresolved", "#{tickets_unresolved}"]
         sheet.add_row ["",""]
         sheet.add_row ["",""]
         sheet.add_row ["FCR"]
@@ -262,8 +262,8 @@ if excel.include?(:tables)
         sheet.add_row ["",""]
         sheet.add_row ["Regional Teams"]
         sheet.add_row ["Team", "SC", "NC", "GA"]
-        sheet.add_row ["Closed tickets by team", "#{sc_closed}", "#{nc_closed}", "#{ga_closed}"]
-        sheet.add_row ["Total unresloved to date by team", "#{unresolved_sc}", "#{unresolved_nc}", "#{unresolved_ga}"]
+        sheet.add_row ["Closed tickets by team past week", "#{sc_closed}", "#{nc_closed}", "#{ga_closed}"]
+        sheet.add_row ["Total current unresloved by team", "#{unresolved_sc}", "#{unresolved_nc}", "#{unresolved_ga}"]
    end
 end
 
@@ -274,7 +274,7 @@ mb_obj.set_from_address("reports@vc3.com", {"first"=>"Cameron", "last" => "Sowde
 # Define a to recipient.
 mb_obj.add_recipient(:to, "cameron.sowder@vc3.com", {"first" => "Cameron", "last" => "Sowder"});
 # Define a cc recipient.
-#mb_obj.add_recipient(:to, "Amy.McKeown@vc3.com", {"first" => "Amy", "last" => "McKeown"});
+mb_obj.add_recipient(:to, "Amy.McKeown@vc3.com", {"first" => "Amy", "last" => "McKeown"});
 #mb_obj.add_recipient(:to, "Team-FCR@vc3.com", {"first" => "Mark", "last" => "Carter"});
 # Define the subject.
 mb_obj.set_subject("Weekly report");
