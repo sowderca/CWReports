@@ -69,19 +69,19 @@ loop do
     break unless opened_FCR.nil? 
 end
 loop do 
-    closed_SC = cw_client.run_report_count("reportName" => "Service", "conditions" => "date_closed >= #{@yesterday_morning} and date_closed < #{@yesterday_evening} and (Board_Name = 'SC Services' or Board_Name = 'SC Internal') and (closed_by = 'sowderca' or closed_by = 'browndea' or closed_by = 'baileypa' or closed_by = 'sleeperk' or closed_by = 'johnsonc' or closed_by = 'hurstgab' or closed_by = 'rogersda')")
+    closed_SC = cw_client.run_report_count("reportName" => "Service", "conditions" => "date_closed >= #{@yesterday_morning} and date_closed < #{@yesterday_evening} and (Board_Name = 'SC Services' or Board_Name = 'SC Internal') and (closed_by = 'sowderca' or closed_by = 'browndea' or closed_by = 'baileypa' or closed_by = 'sleeperk' or closed_by = 'johnsonc' or closed_by = 'hurstgab' or closed_by = 'rogersda' or closed_by = 'postonja')")
     break unless closed_SC.nil? 
 end
 loop do 
-    closed_NC = cw_client.run_report_count("reportName" => "Service", "conditions" => "date_closed >= #{@yesterday_morning} and date_closed < #{@yesterday_evening} and (Board_Name = 'NC Govt Services' or Board_Name = 'NC Govt Internal') and (closed_by = 'sowderca' or closed_by = 'browndea' or closed_by = 'baileypa' or closed_by = 'sleeperk' or closed_by = 'johnsonc' or closed_by = 'hurstgab' or closed_by = 'rogersda')")
+    closed_NC = cw_client.run_report_count("reportName" => "Service", "conditions" => "date_closed >= #{@yesterday_morning} and date_closed < #{@yesterday_evening} and (Board_Name = 'NC Govt Services' or Board_Name = 'NC Govt Internal') and (closed_by = 'sowderca' or closed_by = 'browndea' or closed_by = 'baileypa' or closed_by = 'sleeperk' or closed_by = 'johnsonc' or closed_by = 'hurstgab' or closed_by = 'rogersda' or closed_by = 'postonja')")
     break unless closed_NC.nil? 
 end
 loop do 
-    closed_GA = cw_client.run_report_count("reportName" => "Service", "conditions" => "date_closed >= #{@yesterday_morning} and date_closed < #{@yesterday_evening} and (Board_Name = 'GA Govt Services' or Board_Name = 'GA Govt Internal') and (closed_by = 'sowderca' or closed_by = 'browndea' or closed_by = 'baileypa' or closed_by = 'sleeperk' or closed_by = 'johnsonc' or closed_by = 'hurstgab' or closed_by = 'rogersda')")
+    closed_GA = cw_client.run_report_count("reportName" => "Service", "conditions" => "date_closed >= #{@yesterday_morning} and date_closed < #{@yesterday_evening} and (Board_Name = 'GA Govt Services' or Board_Name = 'GA Govt Internal') and (closed_by = 'sowderca' or closed_by = 'browndea' or closed_by = 'baileypa' or closed_by = 'sleeperk' or closed_by = 'johnsonc' or closed_by = 'hurstgab' or closed_by = 'rogersda' or closed_by = 'postonja')")
     break unless closed_GA.nil? 
 end
 loop do 
-    closed_FCR = cw_client.run_report_count("reportName" => "Service", "conditions" => "date_closed >= #{@yesterday_morning} and date_closed < #{@yesterday_evening} and Board_Name = 'FCR' and (closed_by = 'sowderca' or closed_by = 'browndea' or closed_by = 'baileypa' or closed_by = 'sleeperk' or closed_by = 'johnsonc' or closed_by = 'hurstgab' or closed_by = 'rogersda')")
+    closed_FCR = cw_client.run_report_count("reportName" => "Service", "conditions" => "date_closed >= #{@yesterday_morning} and date_closed < #{@yesterday_evening} and Board_Name = 'FCR' and (closed_by = 'sowderca' or closed_by = 'browndea' or closed_by = 'baileypa' or closed_by = 'sleeperk' or closed_by = 'johnsonc' or closed_by = 'hurstgab' or closed_by = 'rogersda' or closed_by = 'postonja')")
     break unless closed_FCR.nil? 
 end
 
