@@ -22,9 +22,9 @@ excel = Array.new
 excel << :tables
 
 
-this_morning      = Chronic.parse('today at 7:00').iso8601
+this_morning      = Chronic.parse('today at 07:00').iso8601
 yesterday_evening = Chronic.parse('yesterday at 18:00').iso8601
-yesterday_morning = Chronic.parse('yesterday at 7:00').iso8601
+yesterday_morning = Chronic.parse('yesterday at 07:00').iso8601
 @this_morning = "[#{this_morning}]"
 @yesterday_evening = "[#{yesterday_evening}]"
 @yesterday_morning = "[#{yesterday_morning}]"
