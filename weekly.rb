@@ -4,10 +4,11 @@ require 'axlsx'
 require 'chronic'
 require 'mailgun'
 require 'business_time'
+require_relative('global')
 
+cw_client = ConnectStoopid::ReportingClient.new(CW_URL, COMP, CW_USR, CW_PSS)
+mg_client = Mailgun::Client.new(ML_KEY)
 
-cw_client = ConnectStoopid::ReportingClient.new('connect.vc3.com', 'vc3', 'dattoCW', 'mushySh@pe83', :client_logging => false)
-mg_client = Mailgun::Client.new("key-70f741f0b10b167ad20b09f841151af8")
 mb_obj = Mailgun::MessageBuilder.new
 
 

@@ -5,13 +5,14 @@ require 'rest-client'
 require 'axlsx'
 require 'time'
 require 'chronic'
+require_relative('global')
 
 
 # Connectwise API && Mailgun API
-cw_client = ConnectStoopid::ReportingClient.new('connect.vc3.com', 'vc3', 'dattoCW', 'mushySh@pe83')
+cw_client = ConnectStoopid::ReportingClient.new(CW_URL, COMP, CW_USR, CW_PSS)
 
 # Excel and Email builder
-mg_client = Mailgun::Client.new("key-70f741f0b10b167ad20b09f841151af8")
+mg_client = Mailgun::Client.new(ML_KEY)
 mb_obj = Mailgun::MessageBuilder.new
 
 
